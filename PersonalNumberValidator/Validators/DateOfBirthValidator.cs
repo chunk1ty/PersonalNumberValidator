@@ -6,7 +6,7 @@ namespace PersonalNumberValidator.Validators
     //P.S Dates after 31.12.2099 are not supported
     internal class DateOfBirthValidator : IValidator
     {
-        public Result IsValid(string number)
+        public Result Validate(string number)
         {
             int year = int.Parse(number.Substring(0, 2));
             int month = int.Parse(number.Substring(2, 2));
@@ -35,6 +35,6 @@ namespace PersonalNumberValidator.Validators
             return Result.Success();
         }
 
-        public int Order { get; } = 1;
+        public int Order { get; } = 2;
     }
 }

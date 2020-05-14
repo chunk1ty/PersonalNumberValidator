@@ -7,9 +7,9 @@ namespace PersonalNumberValidator.Validators
     {
         private readonly short[] Weights = { 2, 4, 8, 5, 10, 9, 7, 3, 6 };
 
-        public Result IsValid(string number)
+        public Result Validate(string number)
         {
-            var actualLastDigit = int.Parse(number.Substring(9, 1));
+            int actualLastDigit = int.Parse(number.Substring(9, 1));
 
             int personalNumberSum = 0;
             for (int i = 0; i <= 8; i++)
@@ -17,15 +17,20 @@ namespace PersonalNumberValidator.Validators
                 personalNumberSum += number[i].GetDigit() * Weights[i];
             }
 
-            var expectedLastDigit = personalNumberSum % 11;
+            int expectedLastDigit = personalNumberSum % 11;
             if (expectedLastDigit == 10)
             {
                 expectedLastDigit = 0;
             }
 
-            return actualLastDigit == expectedLastDigit ? Result.Success() : Result.Failure("Invalid Personal number.");
+            if (actualLastDigit != expectedLastDigit)
+            {
+                return Result.Failure("Invalid Personal number.");
+            }
+
+            return Result.Success();
         }
 
-        public int Order { get; } = 2;
+        public int Order { get; } = 3;
     }
 }

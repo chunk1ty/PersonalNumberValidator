@@ -4,7 +4,7 @@ namespace PersonalNumberValidator.Validators
 {
     internal interface IValidator
     {
-        Result IsValid(string number);
+        Result Validate(string number);
 
         int Order { get; }
     }

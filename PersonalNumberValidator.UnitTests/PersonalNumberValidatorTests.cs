@@ -63,6 +63,7 @@ namespace PersonalNumberValidator.UnitTests
         [TestCase("1212350000")]
         [TestCase("1252320000")]
         [TestCase("0099010000")]
+        [TestCase("9102290000")]
         public void IsValid_WhenDateIsInvalid_ShouldReturnFailureResult(string input)
         {
             // Act

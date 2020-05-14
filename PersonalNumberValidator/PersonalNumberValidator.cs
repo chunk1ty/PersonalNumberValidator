@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using PersonalNumberValidator.Common;
-using PersonalNumberValidator.Extensions;
 using PersonalNumberValidator.Validators;
 
 namespace PersonalNumberValidator
@@ -13,7 +12,7 @@ namespace PersonalNumberValidator
 
         public PersonalNumberValidator()
         {
-            _validators = new List<IValidator> { new LastDigitValidator(), new DateOfBirthValidator() };
+            _validators = new List<IValidator> { new LastDigitValidator(), new DateOfBirthValidator(), new BasicValidator() };
         }
 
         public Result IsValid(string number)
@@ -24,19 +23,9 @@ namespace PersonalNumberValidator
             }
 
             string trimmedNumber = number.Trim();
-            if (trimmedNumber.Length != 10)
-            {
-                return Result.Failure("Personal number should be 10 digits.");
-            }
-
-            if (!trimmedNumber.IsNumber())
-            {
-                return Result.Failure("Personal number should contains only digits.");
-            }
-
             foreach (IValidator validator in _validators.OrderBy(x => x.Order))
             {
-                var result = validator.IsValid(trimmedNumber);
+                var result = validator.Validate(trimmedNumber);
                 if (!result.IsSuccessful)
                 {
                     return result;
